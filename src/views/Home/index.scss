@@ -66,4 +66,61 @@ $c-color: rgba(0, 0, 0, 0.5);
   width: $c-width;
   height: $c-width;
   cursor: pointer;
+  background-size: cover;
+}
+
+.black {
+  background-image: url('http://ojdfj29yl.bkt.clouddn.com/black.png');
+}
+.white {
+  background-image: url('http://ojdfj29yl.bkt.clouddn.com/white.png');
+}
+
+.g-control {
+  float: left;
+  margin: 50px;
+
+  button {
+    white-space: nowrap;
+    cursor: pointer;
+    background: #fff;
+    border: 1px solid #c0ccda;
+    color: #1f2d3d;
+    -webkit-appearance: none;
+    text-align: center;
+    box-sizing: border-box;
+    outline: none;
+    margin: 0;
+    user-select: none;
+    margin-right: 10px;
+    padding: 9px 15px;
+    font-size: 14px;
+    border-radius: 4px;
+    color: #fff;
+    background-color: #50bfff;
+    border-color: #50bfff;
+    transition: all .2s ease;
+  }
+
+  button.choose {
+    color: black;
+  }
+
+  .choose-rule {
+    padding-top: 10px;
+  }
+}
+
+.show-detail {
+  p {
+    line-height: 30px;
+
+    span {
+      padding-right: 5px;
+    }
+  }
+}
+
+.hide {
+  display: none;
 }
