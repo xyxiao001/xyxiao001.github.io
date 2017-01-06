@@ -1,7 +1,69 @@
-.wrap {
+a, abbr, acronym, address, applet, big, blockquote, body, caption, cite, code, dd, del, dfn, div, dl, dt, em, fieldset,
+form, h1, h2, h3, h4, h5, h6, html, iframe,img, ins, kbd, label, legend, li, object, ol, p, pre, q, s, samp, small,
+span, strike, strong, sub, sup, table, tbody, td, tfoot, th, thead, tr, tt, ul, var {
+  margin: 0;
+  padding: 0;
+  border: 0;
+  outline: 0;
+  font-weight: inherit;
+  font-style: inherit;
+  font-family: inherit;
+  font-size: 100%;
+  -webkit-tap-highlight-color: rgba(255,255,255,0);
+  vertical-align: baseline;
+  font-family: -apple-system,BlinkMacSystemFont,Segoe UI,Roboto,Helvetica Neue,Arial,sans-serif;
+  text-decoration: none;
+}
+
+.w-title {
+  margin: 10px;
+}
+
+$c-width: 36px;
+$c-color: rgba(0, 0, 0, 0.5);
+
+.gobang {
   position: relative;
-  margin: auto;
-  margin-bottom: 45px;
-  overflow-x: hidden;
-  font-family: '微软雅黑';
+  margin: 50px auto;
+  width: $c-width * 16;
+  height: $c-width * 16;
+  box-shadow: 2px 2px 8px #888;
+  background-image: url('https://ss0.bdstatic.com/94oJfD_bAAcT8t7mm9GUKT-xh_/timg?image&quality=100&size=b4000_4000&sec=1483726136&di=8605d1f6a8179e474b205c50ae732d67&src=http://img3.duitang.com/uploads/item/201501/28/20150128082017_4cKPt.thumb.700_0.jpeg');
+  background-size: cover;
+}
+
+
+// 棋盘背景
+.gb-box {
+  position: relative;
+  display: inline-block;
+  margin-left: $c-width / 2;
+  margin-top: $c-width / 2;
+  width: $c-width * 15;
+  border-bottom: 1px solid $c-color;
+  border-right: 1px solid $c-color;
+}
+
+.gb-item {
+  float: left;
+  width: $c-width - 1;
+  height: $c-width - 1;
+  border-top: 1px solid $c-color;
+  border-left: 1px solid $c-color;
+}
+
+// 棋盘
+.g-box {
+  position: absolute;
+  top: 0;
+  width: 100%;
+  height: 100%;
+  z-index: 1;
+}
+
+.g-item {
+  float: left;
+  width: $c-width;
+  height: $c-width;
+  cursor: pointer;
 }
