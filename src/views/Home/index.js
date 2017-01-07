@@ -17,7 +17,7 @@ class Home extends React.Component {
       ai: false,
       people: false,
       first: 'people',
-      firstcolor: 'white',
+      firstcolor: 'black',
       nowColor: '',
       nowTime: 0,
       set: '',
@@ -31,6 +31,7 @@ class Home extends React.Component {
     this.changeFirst = this.changeFirst.bind(this)
     this.changeFirstColor = this.changeFirstColor.bind(this)
     this.gameOver = this.gameOver.bind(this)
+    this.aiPlay = this.aiPlay.bind(this)
   }
   // 开始计时
   startTime() {
@@ -49,14 +50,18 @@ class Home extends React.Component {
   }
   // 开始游戏
   start() {
+    // 渲染dom调用
+    this.createCheckerboards()
     if (this.state.start === false) {
       var color = ''
       if (this.state.first === 'ai') {
-        color = this.state.firstcolor === 'black' ? 'white' : this.state.firstcolor === 'white' ? 'balck' : 'white'
+        color = this.state.firstcolor === 'black' ? 'white' : 'black'
         this.setState({
           ai: true,
           people: false,
           nowColor: color
+        }, () => {
+          this.aiPlay(112)
         })
       } else {
         color = this.state.firstcolor === 'black' ? 'black' : 'white'
@@ -90,18 +95,18 @@ class Home extends React.Component {
   // 生成棋子最初状态函数
   createCheckerboards() {
     // 一共225个位置  x 横坐标 y纵坐标  z 棋子颜色 0没棋子 1黑色 2白色
-    let x = 1
-    let y = 1
+    let x = 0
+    let y = 0
     let z = 0
     let arr = []
     function create() {
       arr.push([x, y, z])
-      if (x < 15) {
+      if (x < 14) {
         x += 1
         create()
-      } else if (y < 15) {
+      } else if (y < 14) {
         y += 1
-        x = 1
+        x = 0
         create()
       }
     }
@@ -119,11 +124,17 @@ class Home extends React.Component {
       return false
     }
     // 判断是否有赢家
-    this.gameOver()
+    if (!this.gameOver(i)) {
+      return false
+    }
     this.setState({
       nowColor: this.state.nowColor === 'black' ? 'white' : 'black',
       ai: this.state.ai = !this.state.ai,
       people: this.state.people = !this.state.people
+    }, () => {
+      if (this.state.ai) {
+        this.aiPlay(i)
+      }
     })
   }
   // 改变先手
@@ -136,17 +147,113 @@ class Home extends React.Component {
   }
   // 点击事件
   chesspieces(i) {
-    if (this.state.start === true) {
+    if (this.state.start && this.state.people) {
       this.choosepieces(i)
     }
   }
   // 判断游戏是否结束
-  gameOver() {
+  gameOver(i) {
     // 判断是否连续的五个子
-    var chess = 0
-    console.log(chess)
-    console.log('gameOver')
+    var chess = 1
+    var color = this.state.nowColor
+    var arr = this.state.checkerboards
+    var x = arr[i][0]
+    var y = arr[i][1]
+    var m = 0
+    var n = 0
+    color = color === 'white' ? 2 : 1
+    // x 轴方向
+    for (m = x - 1; m >= 0; m--) {
+      if (arr[y * 15 + m][2] === color) {
+        chess += 1
+      } else {
+        break
+      }
+    }
+    for (m = x + 1; m < 15; m++) {
+      if (arr[y * 15 + m][2] === color) {
+        chess += 1
+      } else {
+        break
+      }
+    }
+    chess = chess >= 5 ? 5 : 1
+
+    // y轴方向
+    for (m = y - 1; m >= 0; m--) {
+      if (arr[m * 15 + x][2] === color) {
+        chess += 1
+      } else {
+        break
+      }
+    }
+    for (m = y + 1; m < 15; m++) {
+      if (arr[m * 15 + x][2] === color) {
+        chess += 1
+      } else {
+        break
+      }
+    }
+    chess = chess >= 5 ? 5 : 1
+
+    // 右斜方向
+    for (m = y - 1, n = x - 1; m >= 0 && n >= 0; m--, n--) {
+      if (arr[m * 15 + n][2] === color) {
+        chess += 1
+      } else {
+        break
+      }
+    }
+    for (m = y + 1, n = x + 1; m < 15 && n < 15; m++, n++) {
+      if (arr[m * 15 + n][2] === color) {
+        chess += 1
+      } else {
+        break
+      }
+    }
+    chess = chess >= 5 ? 5 : 1
+
+    // 左斜方向
+    for (m = y - 1, n = x + 1; m >= 0 && n < 15; m--, n++) {
+      if (arr[m * 15 + n][2] === color) {
+        chess += 1
+      } else {
+        break
+      }
+    }
+    for (m = y + 1, n = x - 1; m < 15 && n >= 0; m++, n--) {
+      if (arr[m * 15 + n][2] === color) {
+        chess += 1
+      } else {
+        break
+      }
+    }
+    if (chess >= 5) {
+      console.log('gameOver')
+      var win = this.state.ai ? '电脑获胜, 你再去练练吧...' : '你太棒了, 打败了电脑！'
+      this.clearTime()
+      this.setState({
+        start: false,
+        msg: win
+      })
+      return false
+    } else {
+      return true
+    }
   }
+
+  // ai下棋逻辑
+  aiPlay(i) {
+    var random = (data) => {
+      if (this.state.checkerboards[data][2] === 0) {
+        this.choosepieces(data)
+      } else {
+        random(data - 1)
+      }
+    }
+    random(i)
+  }
+  // 第一次渲染棋盘
   componentDidMount() {
     // 渲染dom调用
     this.createCheckerboards()
@@ -195,7 +302,7 @@ class Home extends React.Component {
           <div className="gb-box">
             {
               this.state.checkerboards.map((checkerboard) => {
-                if (checkerboard[0] < 15 && checkerboard[1] < 15) {
+                if (checkerboard[0] < 14 && checkerboard[1] < 14) {
                   return (
                     <div className="gb-item" key={'x' + checkerboard[0] + 'y' + checkerboard[1]}></div>
                   )
