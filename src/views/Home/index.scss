@@ -25,11 +25,24 @@ $c-color: rgba(0, 0, 0, 0.5);
 .gobang {
   position: relative;
   margin: 50px auto;
-  width: $c-width * 16;
-  height: $c-width * 16;
+  width: $c-width * 15;
+  height: $c-width * 15;
   box-shadow: 2px 2px 8px #888;
   background-image: url('https://ss0.bdstatic.com/94oJfD_bAAcT8t7mm9GUKT-xh_/timg?image&quality=100&size=b4000_4000&sec=1483726136&di=8605d1f6a8179e474b205c50ae732d67&src=http://img3.duitang.com/uploads/item/201501/28/20150128082017_4cKPt.thumb.700_0.jpeg');
   background-size: cover;
+}
+.g-loading {
+  position: absolute;
+  width: 100%;
+  height: 100%;
+  z-index: 100;
+  background-color: rgba(0, 0, 0, 0.5);
+
+  p {
+    font-size: 25px;
+    color: white;
+    text-align: center;
+  }
 }
 
 
@@ -39,7 +52,7 @@ $c-color: rgba(0, 0, 0, 0.5);
   display: inline-block;
   margin-left: $c-width / 2;
   margin-top: $c-width / 2;
-  width: $c-width * 15;
+  width: $c-width * 14;
   border-bottom: 1px solid $c-color;
   border-right: 1px solid $c-color;
 }
@@ -66,7 +79,8 @@ $c-color: rgba(0, 0, 0, 0.5);
   width: $c-width;
   height: $c-width;
   cursor: pointer;
-  background-size: cover;
+  background-repeat: no-repeat;
+  background-position: 4px 4px;
 }
 
 .black {
@@ -113,7 +127,7 @@ $c-color: rgba(0, 0, 0, 0.5);
 
 .show-detail {
   p {
-    line-height: 30px;
+    line-height: 40px;
 
     span {
       padding-right: 5px;

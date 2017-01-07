@@ -11,6 +11,7 @@ class Home extends React.Component {
       // 是否开始
       start: false,
       mstart: '开始游戏',
+      msg: '请先开始游戏',
       // 保存棋盘状态
       checkerboards: [],
       ai: false,
@@ -29,6 +30,7 @@ class Home extends React.Component {
     this.clearTime = this.clearTime.bind(this)
     this.changeFirst = this.changeFirst.bind(this)
     this.changeFirstColor = this.changeFirstColor.bind(this)
+    this.gameOver = this.gameOver.bind(this)
   }
   // 开始计时
   startTime() {
@@ -75,6 +77,7 @@ class Home extends React.Component {
       this.setState({
         start: false,
         mstart: '开始游戏',
+        msg: '请先开始游戏',
         ai: false,
         people: false
       })
@@ -93,10 +96,10 @@ class Home extends React.Component {
     let arr = []
     function create() {
       arr.push([x, y, z])
-      if (x < 16) {
+      if (x < 15) {
         x += 1
         create()
-      } else if (y < 16) {
+      } else if (y < 15) {
         y += 1
         x = 1
         create()
@@ -115,6 +118,8 @@ class Home extends React.Component {
     } else {
       return false
     }
+    // 判断是否有赢家
+    this.gameOver()
     this.setState({
       nowColor: this.state.nowColor === 'black' ? 'white' : 'black',
       ai: this.state.ai = !this.state.ai,
@@ -125,6 +130,7 @@ class Home extends React.Component {
   changeFirst() {
     this.state.first === 'people' ? this.setState({first: 'ai'}) : this.setState({first: 'people'})
   }
+  // 改变棋子颜色
   changeFirstColor() {
     this.state.firstcolor === 'white' ? this.setState({firstcolor: 'black'}) : this.setState({firstcolor: 'white'})
   }
@@ -133,6 +139,13 @@ class Home extends React.Component {
     if (this.state.start === true) {
       this.choosepieces(i)
     }
+  }
+  // 判断游戏是否结束
+  gameOver() {
+    // 判断是否连续的五个子
+    var chess = 0
+    console.log(chess)
+    console.log('gameOver')
   }
   componentDidMount() {
     // 渲染dom调用
@@ -164,7 +177,7 @@ class Home extends React.Component {
               onClick={this.changeFirstColor}
             >白棋</button>
           </div>
-          <div className="show-detail">
+          <div className={this.state.start === false ? 'hide show-detai' : 'show-detail'}>
             <p><span>本局时间:</span>
             {~~(this.state.nowTime / 3600) + ' 时 ' +
             (~~(this.state.nowTime / 60) - ~~(this.state.nowTime / 3600) * 3600) + ' 分 ' +
@@ -175,11 +188,14 @@ class Home extends React.Component {
           </div>
         </div>
         <div className="gobang">
+          <div className={this.state.start === false ? 'g-loading' : 'hide'}>
+            <p>{this.state.msg}</p>
+          </div>
           {/* 此处是棋盘背景 根据二维数组生成数据*/}
           <div className="gb-box">
             {
               this.state.checkerboards.map((checkerboard) => {
-                if (checkerboard[0] < 16 && checkerboard[1] < 16) {
+                if (checkerboard[0] < 15 && checkerboard[1] < 15) {
                   return (
                     <div className="gb-item" key={'x' + checkerboard[0] + 'y' + checkerboard[1]}></div>
                   )
