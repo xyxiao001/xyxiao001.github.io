@@ -248,7 +248,11 @@ class Home extends React.Component {
       if (this.state.checkerboards[data][2] === 0) {
         this.choosepieces(data)
       } else {
-        random(data - 1)
+        if (data - 1 < 0) {
+          random(data + 15)
+        } else {
+          random(data - 1)
+        }
       }
     }
     random(i)
