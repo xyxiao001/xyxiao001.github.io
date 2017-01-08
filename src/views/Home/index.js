@@ -61,7 +61,7 @@ class Home extends React.Component {
           people: false,
           nowColor: color
         }, () => {
-          this.aiPlay(112)
+          this.aiPlay({x: 7, y: 7, z: 0})
         })
       } else {
         color = this.state.firstcolor === 'black' ? 'black' : 'white'
@@ -94,23 +94,20 @@ class Home extends React.Component {
   }
   // 生成棋子最初状态函数
   createCheckerboards() {
-    // 一共225个位置  x 横坐标 y纵坐标  z 棋子颜色 0没棋子 1黑色 2白色
-    let x = 0
-    let y = 0
-    let z = 0
+    // 一共225个位置  x 横坐标 y纵坐标  z 棋子颜色 0没棋子 1黑色 2白色 右上角是原点
     let arr = []
-    function create() {
-      arr.push([x, y, z])
-      if (x < 14) {
-        x += 1
-        create()
-      } else if (y < 14) {
-        y += 1
-        x = 0
-        create()
+    for (var j = 0; j < 15; j++) {
+      arr[j] = []
+      for (var i = 0; i < 15; i++) {
+        arr[j].push(
+          {
+            x: j,
+            y: i,
+            z: 0
+          }
+        )
       }
     }
-    create()
     this.setState({
       checkerboards: arr
     })
@@ -118,8 +115,8 @@ class Home extends React.Component {
   // 下棋事件
   choosepieces(i) {
     var z = this.state.nowColor === 'black' ? 1 : 2
-    if (this.state.checkerboards[i][2] === 0) {
-      this.state.checkerboards[i][2] = z
+    if (this.state.checkerboards[i.x][i.y].z === 0) {
+      this.state.checkerboards[i.x][i.y].z = z
     } else {
       return false
     }
@@ -157,21 +154,21 @@ class Home extends React.Component {
     var chess = 1
     var color = this.state.nowColor
     var arr = this.state.checkerboards
-    var x = arr[i][0]
-    var y = arr[i][1]
+    var x = i.x
+    var y = i.y
     var m = 0
     var n = 0
     color = color === 'white' ? 2 : 1
     // x 轴方向
     for (m = x - 1; m >= 0; m--) {
-      if (arr[y * 15 + m][2] === color) {
+      if (arr[m][y].z === color) {
         chess += 1
       } else {
         break
       }
     }
     for (m = x + 1; m < 15; m++) {
-      if (arr[y * 15 + m][2] === color) {
+      if (arr[m][y].z === color) {
         chess += 1
       } else {
         break
@@ -181,14 +178,14 @@ class Home extends React.Component {
 
     // y轴方向
     for (m = y - 1; m >= 0; m--) {
-      if (arr[m * 15 + x][2] === color) {
+      if (arr[x][m].z === color) {
         chess += 1
       } else {
         break
       }
     }
     for (m = y + 1; m < 15; m++) {
-      if (arr[m * 15 + x][2] === color) {
+      if (arr[x][m] === color) {
         chess += 1
       } else {
         break
@@ -198,14 +195,14 @@ class Home extends React.Component {
 
     // 右斜方向
     for (m = y - 1, n = x - 1; m >= 0 && n >= 0; m--, n--) {
-      if (arr[m * 15 + n][2] === color) {
+      if (arr[n][m].z === color) {
         chess += 1
       } else {
         break
       }
     }
     for (m = y + 1, n = x + 1; m < 15 && n < 15; m++, n++) {
-      if (arr[m * 15 + n][2] === color) {
+      if (arr[n][m].z === color) {
         chess += 1
       } else {
         break
@@ -215,14 +212,14 @@ class Home extends React.Component {
 
     // 左斜方向
     for (m = y - 1, n = x + 1; m >= 0 && n < 15; m--, n++) {
-      if (arr[m * 15 + n][2] === color) {
+      if (arr[n][m].z === color) {
         chess += 1
       } else {
         break
       }
     }
     for (m = y + 1, n = x - 1; m < 15 && n >= 0; m++, n--) {
-      if (arr[m * 15 + n][2] === color) {
+      if (arr[n][m].z === color) {
         chess += 1
       } else {
         break
@@ -244,18 +241,7 @@ class Home extends React.Component {
 
   // ai下棋逻辑
   aiPlay(i) {
-    var random = (data) => {
-      if (this.state.checkerboards[data][2] === 0) {
-        this.choosepieces(data)
-      } else {
-        if (data - 1 < 0) {
-          random(data + 15)
-        } else {
-          random(data - 1)
-        }
-      }
-    }
-    random(i)
+    // 搜索全盘匹配分值最高的位置
   }
   // 第一次渲染棋盘
   componentDidMount() {
@@ -306,11 +292,15 @@ class Home extends React.Component {
           <div className="gb-box">
             {
               this.state.checkerboards.map((checkerboard) => {
-                if (checkerboard[0] < 14 && checkerboard[1] < 14) {
-                  return (
-                    <div className="gb-item" key={'x' + checkerboard[0] + 'y' + checkerboard[1]}></div>
-                  )
-                }
+                return (
+                  checkerboard.map((item) => {
+                    if (item.x < 14 && item.y < 14) {
+                      return (
+                        <div className="gb-item" key={'x' + item.x + 'y' + item.y}></div>
+                      )
+                    }
+                  })
+                )
               })
             }
           </div>
@@ -319,10 +309,13 @@ class Home extends React.Component {
             {
               this.state.checkerboards.map((checkerboard, index) => {
                 return (
-                  <Chess
-                    handel={this.chesspieces}
-                    z={checkerboard[2]}
-                    index={index} key={'x' + checkerboard[0] + 'y' + checkerboard[1]} />
+                  checkerboard.map((item) => {
+                    return (
+                      <Chess
+                        handel={this.chesspieces}
+                        item={item} key={'x' + item.x + 'y' + item.y} />
+                    )
+                  })
                 )
               })
             }
@@ -340,13 +333,13 @@ class Chess extends React.Component {
     this.choose = this.choose.bind(this)
   }
   choose() {
-    this.props.handel(this.props.index)
+    this.props.handel(this.props.item)
   }
   render() {
     return (
       <div
         onClick={this.choose}
-        className={this.props.z === 0 ? 'g-item' : this.props.z === 1 ? 'black g-item' : 'white g-item'}>
+        className={this.props.item.z === 0 ? 'g-item' : this.props.item.z === 1 ? 'black g-item' : 'white g-item'}>
       </div>
     )
   }
@@ -354,7 +347,6 @@ class Chess extends React.Component {
 
 Chess.propTypes = {
   handel: React.PropTypes.func,
-  index: React.PropTypes.number,
-  z: React.PropTypes.number
+  item: React.PropTypes.object
 }
 export default Home
