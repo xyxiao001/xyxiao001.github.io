@@ -249,6 +249,10 @@ class Home extends React.Component {
     this.createCheckerboards()
   }
   render() {
+    var time = this.state.nowTime
+    var hour = ~~(time / 3600)
+    var min = ~~(time / 60 - hour * 60)
+    var sec = ~~(time - hour * 3600 - min * 60)
     return (
       <div className="wrap">
         <div className="w-title">goodboy 五子棋</div>
@@ -275,13 +279,10 @@ class Home extends React.Component {
             >白棋</button>
           </div>
           <div className={this.state.start === false ? 'hide show-detai' : 'show-detail'}>
-            <p><span>本局时间:</span>
-            {~~(this.state.nowTime / 3600) + ' 时 ' +
-            (~~(this.state.nowTime / 60) - ~~(this.state.nowTime / 3600) * 3600) + ' 分 ' +
-            (this.state.nowTime - ~~(this.state.nowTime / 3600) * 3600 - ~~(this.state.nowTime / 60) * 60) + ' 秒 '
-            }
+            <p><span>本局时间:</span><span>{hour} 时 {min} 分 {sec} 秒 </span>
             </p>
             <p>当前选手: {this.state.ai === true ? ' ai ' : ' 玩家 '} {this.state.nowColor === 'white' ? '白棋' : '黑棋'}</p>
+            <p className={this.state.ai === true ? 'show' : 'hide'}>ai思考中.....</p>
           </div>
         </div>
         <div className="gobang">

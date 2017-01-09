@@ -28,7 +28,7 @@ $c-color: rgba(0, 0, 0, 0.5);
   width: $c-width * 15;
   height: $c-width * 15;
   box-shadow: 2px 2px 8px #888;
-  background-image: url('https://ss0.bdstatic.com/94oJfD_bAAcT8t7mm9GUKT-xh_/timg?image&quality=100&size=b4000_4000&sec=1483726136&di=8605d1f6a8179e474b205c50ae732d67&src=http://img3.duitang.com/uploads/item/201501/28/20150128082017_4cKPt.thumb.700_0.jpeg');
+  background-image: url('http://ojdfj29yl.bkt.clouddn.com/gobang.png');
   background-size: cover;
 }
 .g-loading {
@@ -137,4 +137,111 @@ $c-color: rgba(0, 0, 0, 0.5);
 
 .hide {
   display: none;
+}
+
+@media screen and (max-width: 1000px) {
+  .g-control {
+    width: 200px;
+    height: 150px;
+    margin: auto;
+    float: none;
+  }
+}
+
+@media screen and (max-width: 414px) {
+  $s-width: 27px;
+  .gobang {
+    margin: 10px auto;
+    width: $s-width * 15;
+    height: $s-width * 15;
+  }
+
+  .gb-box {
+    width: $s-width * 14;
+    height: $s-width * 14;
+    margin-left: $s-width / 2;
+    margin-top: $s-width / 2;
+  }
+
+  .gb-item {
+    width: $s-width - 1;
+    height: $s-width - 1;
+  }
+
+  .g-box {
+    width: $s-width * 15;
+  }
+
+  .g-item {
+    width: $s-width;
+    height: $s-width;
+    background-size: cover;
+    background-position: 0px 0px;
+  }
+}
+
+
+@media screen and (max-width: 375px) {
+  $m-width: 25px;
+  .gobang {
+    margin: 10px auto;
+    width: $m-width * 15;
+    height: $m-width * 15;
+  }
+
+  .gb-box {
+    width: $m-width * 14;
+    height: $m-width * 14;
+    margin-left: $m-width / 2;
+    margin-top: $m-width / 2;
+  }
+
+  .gb-item {
+    width: $m-width - 1;
+    height: $m-width - 1;
+  }
+
+  .g-box {
+    width: $m-width * 15;
+  }
+
+  .g-item {
+    width: $m-width;
+    height: $m-width;
+    background-size: cover;
+    background-position: 0px 0px;
+  }
+}
+
+
+@media screen and (max-width: 320px) {
+  $f-width: 20px;
+  .gobang {
+    margin: 10px auto;
+    width: $f-width * 15;
+    height: $f-width * 15;
+  }
+
+  .gb-box {
+    width: $f-width * 14;
+    height: $f-width * 14;
+    margin-left: $f-width / 2;
+    margin-top: $f-width / 2;
+  }
+
+  .gb-item {
+    width: $f-width - 1;
+    height: $f-width - 1;
+  }
+
+  .g-box {
+    width: $f-width * 15;
+  }
+
+  .g-item {
+    width: $f-width;
+    height: $f-width;
+    background-size: cover;
+    background-position: 0px 0px;
+  }
 }
