@@ -41,7 +41,7 @@
 }
 
 .d-shadow {
-  background-position: 0% 50%;
+  background-position: 0% 20%;
   background-repeat: no-repeat;
   background-size: cover;
   left: 0;
@@ -85,6 +85,21 @@
     font-weight: 500;
     outline: 0;
     text-align: center;
+  }
+}
+
+.show-info {
+  animation: question1 1s ease-out 1;
+
+  .center {
+    position: absolute;
+    display: inline-block;
+    top: 30%;
+    left: 50%;
+    text-align: center;
+    width: 400px;
+    margin-left: -200px;
+    font-size: 100px;
   }
 }
 

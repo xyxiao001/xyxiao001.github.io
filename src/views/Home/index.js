@@ -11,16 +11,31 @@ class Home extends React.Component {
       language: 'china',
       index: Math.round((Math.random() * 3 + 1)),
       hasName: false,
+      time: '',
       name: '',
       config: {
         question: '你好，你的名字是？'
       }
     }
+    this.set = ''
     this.changeLanguage = this.changeLanguage.bind(this)
     this.setConfig = this.setConfig.bind(this)
     this.subName = this.subName.bind(this)
     this.saveLanguage = this.saveLanguage.bind(this)
     this.saveName = this.saveName.bind(this)
+    this.start = this.start.bind(this)
+  }
+  // 开始计时
+  start() {
+    // 开始计时
+    var date = ''
+    this.set = setInterval(() => {
+      date = new Date()
+      date = date.toString()
+      this.setState({
+        time: date.substring(16, 25)
+      })
+    }, 1000)
   }
   // 改变语言
   changeLanguage() {
@@ -66,6 +81,7 @@ class Home extends React.Component {
       }, () => {
         // 保存名字
         this.saveName()
+        this.start()
       })
     }
   }
@@ -79,7 +95,25 @@ class Home extends React.Component {
     window.localStorage.setItem('name', this.state.name)
   }
   componentDidMount() {
-    // 渲染dom调用
+    // 读取本地文件渲染
+    var language = window.localStorage.getItem('language', language)
+    if (language) {
+      this.setState({
+        language: language
+      }, () => {
+        this.setConfig()
+      })
+    }
+    // 看看是否输入了名字
+    var name = window.localStorage.getItem('name', name)
+    if (name) {
+      this.setState({
+        hasName: true,
+        name: name
+      }, () => {
+        this.start()
+      })
+    }
   }
   render() {
     var bgStyle = {
@@ -99,6 +133,11 @@ class Home extends React.Component {
           <div className="d-question">
             <p>{this.state.config.question}</p>
             <input type="text" onKeyUp={this.subName} />
+          </div>
+        </div>
+        <div className={this.state.hasName === true ? 'show-info' : 'hide'} >
+          <div className="center">
+            {this.state.time}
           </div>
         </div>
       </div>
