@@ -14,7 +14,11 @@ class Home extends React.Component {
       time: '',
       name: '',
       config: {
-        question: '你好，你的名字是？'
+        question: '你好，你的名字是？',
+        greet: '',
+        greet1: '上午好',
+        greet2: '下午好',
+        greet3: '晚上好'
       }
     }
     this.set = ''
