@@ -1,255 +1,97 @@
-a, abbr, acronym, address, applet, big, blockquote, body, caption, cite, code, dd, del, dfn, div, dl, dt, em, fieldset,
-form, h1, h2, h3, h4, h5, h6, html, iframe,img, ins, kbd, label, legend, li, object, ol, p, pre, q, s, samp, small,
-span, strike, strong, sub, sup, table, tbody, td, tfoot, th, thead, tr, tt, ul, var {
-  margin: 0;
-  padding: 0;
-  border: 0;
-  outline: 0;
-  font-weight: inherit;
-  font-style: inherit;
-  font-family: inherit;
-  font-size: 100%;
-  -webkit-tap-highlight-color: rgba(255,255,255,0);
-  vertical-align: baseline;
-  font-family: -apple-system,BlinkMacSystemFont,Segoe UI,Roboto,Helvetica Neue,Arial,sans-serif;
-  text-decoration: none;
-}
+.dashboard {
+  color: white;
+  font-family: Microsoft YaHei, Helvetica, Neue, Helvetica, Arial, sans-serif;
 
-.w-title {
-  margin: 10px;
-}
-
-$c-width: 36px;
-$c-color: rgba(0, 0, 0, 0.5);
-
-.gobang {
-  position: relative;
-  margin: 50px auto;
-  width: $c-width * 15;
-  height: $c-width * 15;
-  box-shadow: 2px 2px 8px #888;
-  background-image: url('http://ojdfj29yl.bkt.clouddn.com/gobang.png');
-  background-size: cover;
-}
-.g-loading {
-  position: absolute;
-  width: 100%;
-  height: 100%;
-  z-index: 100;
-  background-color: rgba(0, 0, 0, 0.5);
-
-  p {
-    font-size: 25px;
-    color: white;
-    text-align: center;
-  }
-}
-
-
-// 棋盘背景
-.gb-box {
-  position: relative;
-  display: inline-block;
-  margin-left: $c-width / 2;
-  margin-top: $c-width / 2;
-  width: $c-width * 14;
-  border-bottom: 1px solid $c-color;
-  border-right: 1px solid $c-color;
-}
-
-.gb-item {
-  float: left;
-  width: $c-width - 1;
-  height: $c-width - 1;
-  border-top: 1px solid $c-color;
-  border-left: 1px solid $c-color;
-}
-
-// 棋盘
-.g-box {
-  position: absolute;
-  top: 0;
-  width: 100%;
-  height: 100%;
-  z-index: 1;
-}
-
-.g-item {
-  float: left;
-  width: $c-width;
-  height: $c-width;
-  cursor: pointer;
-  background-repeat: no-repeat;
-  background-position: 4px 4px;
-}
-
-.black {
-  background-image: url('http://ojdfj29yl.bkt.clouddn.com/black.png');
-}
-.white {
-  background-image: url('http://ojdfj29yl.bkt.clouddn.com/white.png');
-}
-
-.g-control {
-  float: left;
-  width: 200px;
-  margin: 50px 0% 50px 10%;
-
-  button {
-    white-space: nowrap;
-    cursor: pointer;
-    background: #fff;
-    border: 1px solid #c0ccda;
-    color: #1f2d3d;
-    -webkit-appearance: none;
-    text-align: center;
-    box-sizing: border-box;
-    outline: none;
-    margin: 0;
+  .logo {
+    position: fixed;
+    width: 80px;
+    height: 80px;
+    left: 50%;
+    top: 30px;
+    margin-left: -40px;
     user-select: none;
-    margin-right: 10px;
-    padding: 9px 15px;
-    font-size: 14px;
-    border-radius: 4px;
-    color: #fff;
-    background-color: #50bfff;
-    border-color: #50bfff;
-    transition: all .2s ease;
-  }
 
-  button.choose {
-    color: black;
-  }
-
-  .choose-rule {
-    padding-top: 10px;
-  }
-}
-
-.show-detail {
-  p {
-    line-height: 40px;
-
-    span {
-      padding-right: 5px;
+    img {
+      width: 100%;
+      height: 100%;
+      border-radius: 50%;
     }
   }
-}
 
-.hide {
-  display: none;
-}
-
-@media screen and (max-width: 1200px) {
-  .g-control {
-    margin-left: 10px;
-    margin-top: 50px;
+  .language {
+    position: absolute;
+    top: 5px;
+    left: 5px;
+    opacity: 0.8;
+    cursor: pointer;
+    user-select: none;
   }
 }
 
-@media screen and (max-width: 1000px) {
-  .g-control {
-    width: 200px;
-    height: 150px;
-    margin: auto;
-    float: none;
+.d-bg {
+  background-position: 50%;
+  background-repeat: no-repeat;
+  background-size: cover;
+  left: 0;
+  position: fixed;
+  text-align: right;
+  width: 100%;
+  height: 100%;
+  z-index: -100;
+}
+
+.d-shadow {
+  background-repeat: no-repeat;
+  background-size: cover;
+  left: 0;
+  position: fixed;
+  text-align: right;
+  width: 100%;
+  height: 100%;
+  z-index: -1;
+  background-image: url(http://ojp9lt0ng.bkt.clouddn.com/shadow.png);
+}
+
+.prompt {
+  position: absolute;
+  top: 50%;
+  right: 0;
+  left: 0;
+  margin-top: -100px;
+  text-align: center;
+}
+
+.d-question {
+  display: inline-block;
+  font-size: 60px;
+  line-height: 120px;
+  white-space: normal;
+  animation: question1 2s ease-out 1;
+
+  p {
+    display: inline-block;
+  }
+
+  input {
+    font-size: 60px;
+    width: 100%;
+    margin: 0 auto;
+    display: block;
+    background: 0;
+    border: 0;
+    border-bottom: 3px solid #fff;
+    color: #fff;
+    font-weight: 500;
+    outline: 0;
+    text-align: center;
   }
 }
 
-@media screen and (max-width: 414px) {
-  $s-width: 27px;
-  .gobang {
-    margin: 10px auto;
-    width: $s-width * 15;
-    height: $s-width * 15;
+@keyframes question1 {
+  0% {
+    opacity: 0;
   }
-
-  .gb-box {
-    width: $s-width * 14;
-    height: $s-width * 14;
-    margin-left: $s-width / 2;
-    margin-top: $s-width / 2;
-  }
-
-  .gb-item {
-    width: $s-width - 1;
-    height: $s-width - 1;
-  }
-
-  .g-box {
-    width: $s-width * 15;
-  }
-
-  .g-item {
-    width: $s-width;
-    height: $s-width;
-    background-size: cover;
-    background-position: 0px 0px;
-  }
-}
-
-
-@media screen and (max-width: 375px) {
-  $m-width: 25px;
-  .gobang {
-    margin: 10px auto;
-    width: $m-width * 15;
-    height: $m-width * 15;
-  }
-
-  .gb-box {
-    width: $m-width * 14;
-    height: $m-width * 14;
-    margin-left: $m-width / 2;
-    margin-top: $m-width / 2;
-  }
-
-  .gb-item {
-    width: $m-width - 1;
-    height: $m-width - 1;
-  }
-
-  .g-box {
-    width: $m-width * 15;
-  }
-
-  .g-item {
-    width: $m-width;
-    height: $m-width;
-    background-size: cover;
-    background-position: 0px 0px;
-  }
-}
-
-
-@media screen and (max-width: 320px) {
-  $f-width: 20px;
-  .gobang {
-    margin: 10px auto;
-    width: $f-width * 15;
-    height: $f-width * 15;
-  }
-
-  .gb-box {
-    width: $f-width * 14;
-    height: $f-width * 14;
-    margin-left: $f-width / 2;
-    margin-top: $f-width / 2;
-  }
-
-  .gb-item {
-    width: $f-width - 1;
-    height: $f-width - 1;
-  }
-
-  .g-box {
-    width: $f-width * 15;
-  }
-
-  .g-item {
-    width: $f-width;
-    height: $f-width;
-    background-size: cover;
-    background-position: 0px 0px;
+  100% {
+    opacity: 1;
   }
 }

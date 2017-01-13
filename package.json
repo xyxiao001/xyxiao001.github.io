@@ -4,6 +4,7 @@
   "description": "xyxiao",
   "dependencies": {
     "babel-runtime": "^6.9.0",
+    "history": "^4.5.1",
     "rc-queue-anim": "^0.12.4",
     "react": "^15.0.2",
     "react-dom": "^15.0.2",
