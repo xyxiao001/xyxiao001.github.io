@@ -11,6 +11,7 @@ class Home extends React.Component {
       language: 'china',
       index: Math.round((Math.random() * 1 + 1)),
       hasName: false,
+      name: '',
       config: {
         question: '你好，你的名字是？'
       }
@@ -19,6 +20,7 @@ class Home extends React.Component {
     this.setConfig = this.setConfig.bind(this)
     this.subName = this.subName.bind(this)
     this.saveLanguage = this.saveLanguage.bind(this)
+    this.saveName = this.saveName.bind(this)
   }
   // 改变语言
   changeLanguage() {
@@ -27,6 +29,7 @@ class Home extends React.Component {
     this.setState({
       language: language
     }, () => {
+      // 根据语言改变配置
       this.setConfig()
       // 同时保存语言到本地
       this.saveLanguage()
@@ -55,12 +58,24 @@ class Home extends React.Component {
     }
   }
   // 提交姓名
-  subName() {
-    console.log(1)
+  subName(e) {
+    if (e.target.value.length > 0 && e.keyCode === 13) {
+      this.setState({
+        name: e.target.value,
+        hasName: true
+      }, () => {
+        this.saveName()
+      })
+    }
   }
-  // 保存数据
+  // 保存语言
   saveLanguage() {
     window.localStorage.setItem('language', this.state.language)
+  }
+
+  // 保存名字
+  saveName() {
+    window.localStorage.setItem('name', this.state.name)
   }
   componentDidMount() {
     // 渲染dom调用
@@ -82,7 +97,7 @@ class Home extends React.Component {
         <div className={this.state.hasName === false ? 'prompt' : 'hide'}>
           <div className="d-question">
             <p>{this.state.config.question}</p>
-            <input type="text" />
+            <input type="text" onKeyUp={this.subName} />
           </div>
         </div>
       </div>
