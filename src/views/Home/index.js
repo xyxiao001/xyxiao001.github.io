@@ -9,7 +9,7 @@ class Home extends React.Component {
     super(props)
     this.state = {
       language: 'china',
-      index: Math.round((Math.random() * 1 + 1)),
+      index: Math.round((Math.random() * 3 + 1)),
       hasName: false,
       name: '',
       config: {
@@ -64,6 +64,7 @@ class Home extends React.Component {
         name: e.target.value,
         hasName: true
       }, () => {
+        // 保存名字
         this.saveName()
       })
     }
