@@ -9,16 +9,35 @@ class Home extends React.Component {
     super(props)
     this.state = {
       language: 'china',
-      index: Math.round((Math.random() * 3 + 1)),
+      index: Math.round((Math.random() * 5 + 1)),
       hasName: false,
       time: '',
+      hour: '',
       name: '',
       config: {
         question: '你好，你的名字是？',
-        greet: '',
         greet1: '上午好',
         greet2: '下午好',
         greet3: '晚上好'
+      },
+      config1: {
+        question: '你好，你的名字是？',
+        greet1: '早上好',
+        greet2: '中午好',
+        greet3: '晚上好'
+      },
+      config2: {
+        question: 'Hello, what\'s you name?',
+        greet1: 'Good morning',
+        greet2: 'Good aftertoon',
+        greet3: 'Good evening'
+      },
+      config3: {
+        question: 'こんにちは、あなたの名前は？',
+        greet: '',
+        greet1: 'おはよう',
+        greet2: 'こんにちは',
+        greet3: 'こんばんは'
       }
     }
     this.set = ''
@@ -31,14 +50,19 @@ class Home extends React.Component {
   }
   // 开始计时
   start() {
-    // 开始计时
-    var date = ''
-    this.set = setInterval(() => {
-      date = new Date()
+    var times = () => {
+      var date = new Date()
+      var hour = date.getHours()
       date = date.toString()
       this.setState({
-        time: date.substring(16, 25)
+        time: date.substring(16, 25),
+        hour: hour
       })
+    }
+    times()
+    // 开始计时
+    this.set = setInterval(() => {
+      times()
     }, 1000)
   }
   // 改变语言
@@ -58,21 +82,15 @@ class Home extends React.Component {
   setConfig() {
     if (this.state.language === 'china') {
       this.setState({
-        config: {
-          question: '你好，你的名字是？'
-        }
+        config: this.state.config1
       })
     } else if (this.state.language === 'english') {
       this.setState({
-        config: {
-          question: 'Hello, what\'s you name?'
-        }
+        config: this.state.config2
       })
     } else {
       this.setState({
-        config: {
-          question: 'こんにちは、あなたの名前は？'
-        }
+        config: this.state.config3
       })
     }
   }
@@ -123,6 +141,16 @@ class Home extends React.Component {
     var bgStyle = {
       backgroundImage: 'url(http://ojp9lt0ng.bkt.clouddn.com/bg' + this.state.index + '.jpg)'
     }
+    var now = (() => {
+      var hour = this.state.hour
+      if (hour > 18 || hour < 6) {
+        return 'greet3'
+      } else if (hour > 6 && hour < 12) {
+        return 'greet1'
+      } else {
+        return 'greet2'
+      }
+    })()
     return (
       <div className="dashboard">
         <a href="https://github.com/xyxiao001" className={this.state.hasName === false ? 'logo' : 'hide'} target="_blank">
@@ -142,6 +170,9 @@ class Home extends React.Component {
         <div className={this.state.hasName === true ? 'show-info' : 'hide'} >
           <div className="center">
             {this.state.time}
+          </div>
+          <div className="gretting">
+            <h2>{this.state.config[now]}, {this.state.name}</h2>
           </div>
         </div>
       </div>
