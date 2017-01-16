@@ -169,9 +169,7 @@ class Home extends React.Component {
         </div>
         <div className={this.state.hasName === true ? 'show-info' : 'hide'} >
           <div className="center">
-            {this.state.time}
-          </div>
-          <div className="gretting">
+            <p>{this.state.time}</p>
             <h2>{this.state.config[now]}, {this.state.name}</h2>
           </div>
         </div>

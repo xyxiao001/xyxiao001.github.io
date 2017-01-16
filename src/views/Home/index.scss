@@ -41,7 +41,7 @@
 }
 
 .d-shadow {
-  background-position: 0% 20%;
+  background-position: 0% 30%;
   background-repeat: no-repeat;
   background-size: cover;
   left: 0;
@@ -55,7 +55,7 @@
 
 .prompt {
   position: absolute;
-  top: 50%;
+  top: 40%;
   right: 0;
   left: 0;
   margin-top: -100px;
@@ -97,18 +97,15 @@
     top: 30%;
     text-align: center;
     width: 100%;
-    font-size: 100px;
-  }
 
-  .gretting {
-    position: absolute;
-    display: inline-block;
-    top: 55%;
-    text-align: center;
-    width: 100%;
-    font-size: 40px;
-    line-height: 60px;
-    vertical-align: middle;
+    p {
+      font-size: 120px;
+    }
+
+    h2 {
+      padding-top: 5px;
+      font-size: 50px;
+    }
   }
 }
 
@@ -118,5 +115,32 @@
   }
   100% {
     opacity: 1;
+  }
+}
+
+@media screen and (max-width:600px){
+  .d-question {
+    font-size: 25px;
+
+    input {
+      font-size: 25px;
+    }
+  }
+
+  .d-shadow {
+    background-position: 0% -40%;
+  }
+
+  .show-info {
+    .center {
+      background-color: rgba(0, 0, 0, 0.1);
+      p {
+        font-size: 50px;
+      }
+
+      h2 {
+        font-size: 35px;
+      }
+    }
   }
 }
