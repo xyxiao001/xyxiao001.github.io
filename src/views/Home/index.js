@@ -9,7 +9,7 @@ class Home extends React.Component {
     super(props)
     this.state = {
       language: 'china',
-      index: Math.round((Math.random() * 5 + 1)),
+      index: Math.round((Math.random() * 10 + 1)),
       hasName: false,
       time: '',
       hour: '',
@@ -160,7 +160,7 @@ class Home extends React.Component {
           {this.state.language === 'china' ? '中' : this.state.language === 'english' ? '英' : '日'}
         </span>
         <div className="d-shadow"></div>
-        <div className="d-bg" style={bgStyle}></div>
+        <div className="d-bg fadein" style={bgStyle}></div>
         <div className={this.state.hasName === false ? 'prompt' : 'hide'}>
           <div className="d-question">
             <p>{this.state.config.question}</p>
