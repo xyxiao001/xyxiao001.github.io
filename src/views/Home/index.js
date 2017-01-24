@@ -9,7 +9,7 @@ class Home extends React.Component {
     super(props)
     this.state = {
       language: 'china',
-      index: Math.round((Math.random() * 10 + 1)),
+      index: Math.round((Math.random() * 12 + 1)),
       hasName: false,
       time: '',
       hour: '',
@@ -38,7 +38,8 @@ class Home extends React.Component {
         greet1: 'おはよう',
         greet2: 'こんにちは',
         greet3: 'こんばんは'
-      }
+      },
+      showAbout: false
     }
     this.set = ''
     this.changeLanguage = this.changeLanguage.bind(this)
@@ -47,6 +48,7 @@ class Home extends React.Component {
     this.saveLanguage = this.saveLanguage.bind(this)
     this.saveName = this.saveName.bind(this)
     this.start = this.start.bind(this)
+    this.about = this.about.bind(this)
   }
   // 开始计时
   start() {
@@ -116,6 +118,11 @@ class Home extends React.Component {
   saveName() {
     window.localStorage.setItem('name', this.state.name)
   }
+  about() {
+    this.setState({
+      showAbout: !this.state.showAbout
+    })
+  }
   componentDidMount() {
     // 读取本地文件渲染
     var language = window.localStorage.getItem('language', language)
@@ -152,26 +159,31 @@ class Home extends React.Component {
       }
     })()
     return (
-      <div className="dashboard">
-        <a href="https://github.com/xyxiao001" className={this.state.hasName === false ? 'logo' : 'hide'} target="_blank">
+      <div className="dashboard" ref="content">
+        <a href="https://github.com/xyxiao001" className={!this.state.hasName ? 'logo' : 'hide'} target="_blank">
           <img src="http://ofyaji162.bkt.clouddn.com/touxiang.jpg" />
         </a>
         <span className="language" onClick={this.changeLanguage}>
           {this.state.language === 'china' ? '中' : this.state.language === 'english' ? '英' : '日'}
         </span>
+        <span className="about-me" onClick={this.about}>关于我</span>
         <div className="d-shadow"></div>
         <div className="d-bg fadein" style={bgStyle}></div>
-        <div className={this.state.hasName === false ? 'prompt' : 'hide'}>
+        <div className={!this.state.hasName ? 'prompt' : 'hide'}>
           <div className="d-question">
             <p>{this.state.config.question}</p>
             <input type="text" onKeyUp={this.subName} />
           </div>
         </div>
-        <div className={this.state.hasName === true ? 'show-info' : 'hide'} >
+        <div className={this.state.hasName ? 'show-info' : 'hide'} >
           <div className="center">
             <p>{this.state.time}</p>
             <h2>{this.state.config[now]}, {this.state.name}</h2>
           </div>
+        </div>
+        <div className={this.state.showAbout ? 'about-content' : 'hide'}>
+          <p className="close" onClick={this.about}>关闭</p>
+          <div></div>
         </div>
       </div>
     )
