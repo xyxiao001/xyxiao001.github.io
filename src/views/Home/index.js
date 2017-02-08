@@ -3,6 +3,9 @@ import React from 'react'
 // 导入css
 import './index.scss'
 
+// 导入组件
+import Item from '../../components/Item'
+
 // 容器组件
 class Home extends React.Component {
   constructor(props) {
@@ -183,7 +186,7 @@ class Home extends React.Component {
         </div>
         <div className={this.state.showAbout ? 'about-content' : 'hide'}>
           <p className="close" onClick={this.about}>关闭</p>
-          <div></div>
+          <Item />
         </div>
       </div>
     )
