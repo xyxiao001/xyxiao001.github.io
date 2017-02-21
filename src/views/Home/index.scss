@@ -34,12 +34,16 @@
     opacity: 0.8;
     cursor: pointer;
     user-select: none;
-    opacity: 0.5;
+    opacity: 0.8;
+    color: white;
     transition: all 1s ease-out;
 
     &:hover {
       opacity: 1;
     }
+  }
+  .gob {
+    right: 60px;
   }
 }
 

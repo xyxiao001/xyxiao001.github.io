@@ -1,4 +1,5 @@
 import React from 'react'
+import { Link } from 'react-router'
 
 // 导入css
 import './index.scss'
@@ -147,6 +148,9 @@ class Home extends React.Component {
       })
     }
   }
+  componentWillUnmount() {
+    clearInterval(this.set)
+  }
   render() {
     var bgStyle = {
       backgroundImage: 'url(http://ojp9lt0ng.bkt.clouddn.com/bg' + this.state.index + '.jpg)'
@@ -169,7 +173,8 @@ class Home extends React.Component {
         <span className="language" onClick={this.changeLanguage}>
           {this.state.language === 'china' ? '中' : this.state.language === 'english' ? '英' : '日'}
         </span>
-        <span className="about-me" onClick={this.about}>关于我</span>
+        <Link to="/gobang" className="about-me gob">五子棋</Link>
+        <a href="http://xyxiao.cn/vue-blog" target="_blank" className="about-me">关于我</a>
         <div className="d-shadow"></div>
         <div className="d-bg fadein" style={bgStyle}></div>
         <div className={!this.state.hasName ? 'prompt' : 'hide'}>
