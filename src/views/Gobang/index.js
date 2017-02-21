@@ -120,10 +120,7 @@ class Gobang extends React.Component {
     } else {
       return false
     }
-    // 判断是否有赢家
-    if (!this.gameOver(i)) {
-      return false
-    }
+
     this.setState({
       nowColor: this.state.nowColor === 'black' ? 'white' : 'black',
       ai: this.state.ai = !this.state.ai,
@@ -133,6 +130,10 @@ class Gobang extends React.Component {
         this.aiPlay(i)
       }
     })
+    // 判断是否有赢家
+    if (!this.gameOver(i)) {
+      return false
+    }
   }
   // 改变先手
   changeFirst() {
